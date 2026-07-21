@@ -4,6 +4,7 @@ import json
 import os
 import secrets
 import string
+import subprocess
 from datetime import datetime, timezone
 
 import gspread
@@ -50,22 +51,24 @@ def create_cpanel_email(cfg, username, password):
 
 
 def create_nextcloud_user(cfg, username, password, firstname, lastname):
-    resp = requests.post(
-        f"{cfg['nextcloud_url'].rstrip('/')}/ocs/v2.php/cloud/users",
-        auth=(cfg["nextcloud_admin"], cfg["nextcloud_password"]),
-        headers={"OCS-APIRequest": "true"},
-        json={
-            "userid": username,
-            "password": password,
-            "displayName": f"{firstname} {lastname}".strip(),
-            "groups": [cfg["nextcloud_group"]],
-        },
-    )
-    if not resp.ok:
-        body = resp.json()
-        msg = body.get("ocs", {}).get("meta", {}).get("message", resp.text)
-        raise RuntimeError(f"Nextcloud error: {msg}")
-    return resp.json()
+    display = f"{firstname} {lastname}".strip()
+    email = f"{username}@{cfg['email_domain']}"
+    env = {**os.environ, "OC_PASS": password}
+    cmd = [
+        "docker", "exec", "--user", "www-data",
+        "-e", "OC_PASS",
+        "nextcloud-aio-nextcloud",
+        "php", "occ", "user:add",
+        "--password-from-env",
+        "--display-name", display,
+        "--group", cfg["nextcloud_group"],
+        "--email", email,
+        username,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=30)
+    if result.returncode != 0:
+        raise RuntimeError(f"Nextcloud error: {result.stderr[:500] or result.stdout[:500]}")
+    return result.stdout
 
 
 def send_telegram(cfg, text):

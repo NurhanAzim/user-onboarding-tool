@@ -7,7 +7,8 @@ VENV=".venv"
 REQ_HASH_FILE=".requirements.hash"
 
 if [ ! -d "$VENV" ]; then
-    python3 -m venv "$VENV"
+    python3 -m venv --without-pip "$VENV"
+    curl -sS https://bootstrap.pypa.io/get-pip.py | "$VENV/bin/python3"
 fi
 
 source "$VENV/bin/activate"
