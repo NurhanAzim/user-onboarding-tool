@@ -1,0 +1,8 @@
+__pycache__/
+.venv/
+.env
+config.json
+service-account.json
+.requirements.hash
+.agents/
+user_onboarding.json

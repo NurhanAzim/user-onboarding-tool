@@ -1,0 +1,17 @@
+{
+  "google_sa_path": "service-account.json",
+  "sheet_id": "your-google-sheet-id",
+  "sheet_name": "Sheet1",
+  "nextcloud_url": "https://nextcloud.example.com",
+  "nextcloud_admin": "admin",
+  "nextcloud_password": "",
+  "nextcloud_group": "group-name",
+  "cpanel_url": "https://example.com:2083",
+  "cpanel_token": "user:apitoken",
+  "email_domain": "example.com",
+  "cpanel_domain": "example.com",
+  "cpanel_quota": 1024,
+  "telegram_bot_token": null,
+  "telegram_chat_id": null,
+  "telegram_thread_id": null
+}
