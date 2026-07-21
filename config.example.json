@@ -11,6 +11,7 @@
   "email_domain": "example.com",
   "cpanel_domain": "example.com",
   "cpanel_quota": 1024,
+  "email_access_url": "https://mail.example.com",
   "telegram_bot_token": null,
   "telegram_chat_id": null,
   "telegram_thread_id": null

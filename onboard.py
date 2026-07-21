@@ -130,7 +130,11 @@ def main(dry_run=False):
             sheet.update_cell(idx, status_col + 1, now)
             send_telegram(
                 cfg,
-                f"Name: {first} {last}\nEmail: {email}\nNextcloud: {username}\nPassword: {password}\nStatus: SUCCESS",
+                f"email: {email}\n"
+                f"password: {password}\n"
+                f"\n"
+                f"Email: {cfg['email_access_url']}\n"
+                f"Nextcloud: {cfg['nextcloud_url']}",
             )
 
         updated += 1

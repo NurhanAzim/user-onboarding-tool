@@ -50,6 +50,7 @@ Edit `config.json`:
 | `email_domain` | Email domain (e.g. `example.com`) |
 | `cpanel_domain` | cPanel domain for email creation |
 | `cpanel_quota` | Mailbox quota in MB |
+| `email_access_url` | URL for webmail access (shown in Telegram message) |
 | `telegram_bot_token` | *(optional)* Telegram bot token |
 | `telegram_chat_id` | *(optional)* Chat/group ID |
 | `telegram_thread_id` | *(optional)* Topic thread ID |
